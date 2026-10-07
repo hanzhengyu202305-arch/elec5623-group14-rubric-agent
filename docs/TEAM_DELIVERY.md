@@ -1,8 +1,9 @@
 # Named team delivery plan
 
-Updated 7 October 2026. **Proposed allocation, pending each member's
-confirmation.** Nothing here is a claim that the work is done, that anyone has
-agreed, or that anyone authored anything. What has actually been committed is
+Updated 7 October 2026. **Piece 4 is claimed. The other four pieces are
+still a proposal, pending each member's confirmation.** Nothing here says the
+work is done, or that anyone has authored the remaining evidence. What has
+actually been committed is
 generated from git history in `CONTRIBUTIONS.md`; read that for the record and
 this for the plan. The A2 rubric awards group marks, so this is work
 prioritisation, not an individual mark guarantee.
@@ -14,9 +15,9 @@ still a write, so the uploader needs collaborator access.
 
 Code, the frozen campaign and the robustness run are already done and
 disclosed as AI-assisted. They are not one of the five tasks below. What
-remains is human work, split into five pieces of about two hours. **No names
-are attached until someone claims a piece in the group chat.** One person,
-one piece.
+remains is human work, split into five pieces of about two hours. **Piece 4
+is claimed; the paper note is not written.** The other four pieces have no
+names until someone claims one in the group chat. One person, one piece.
 
 ## What the tutor still marks
 
@@ -38,8 +39,14 @@ GenAI engineering (4) and Track A alignment (2) are already demonstrated by the 
 | **1. 标注 A** | Read 6 short reports and fill 27 rows. Sufficiency and score are separate questions. Do not look at any model output or at the other sheet. | 2 | `dataset/final_test/annotation/annotator_A.csv`, your name and dates in `REGISTER.md` |
 | **2. 标注 B** | The same 27 rows, filled alone. Same rules. | 2 | `annotator_B.csv`, your name and dates in `REGISTER.md` |
 | **3. 试用** | Two people use the review screen. Time each person twice: once with the tool, once with the rubric only. Save both times, how often they changed a score, and screenshots of the current screen. Say they are classmates, not professional markers. | 2 | `docs/sessions/*.json` plus the screenshots. Instructions: `docs/MARKER_SESSIONS.md` |
-| **4. 核对论文** | Open Evidence-First Scoring, GradeAgentOps and RULERS from the links in `docs/RELATED_WORK.md`. Check that report §3 matches each paper. Write what overlaps and what is only ours. Do not write that we beat those papers. | 2 | a short note committed under your account, and the ability to say that note aloud on 4 November |
+| **4. 核对论文** | Claimed by Yutong Liu (`yliu0744@uni.sydney.edu.au`); the note is not written. Open Evidence-First Scoring, GradeAgentOps and RULERS from the links in `docs/RELATED_WORK.md`. Check that report §3 matches each paper. Write what overlaps and what is only ours. Do not write that we beat those papers. | 2 | a short note committed under her own account, and the ability to say that note aloud on 4 November |
 | **5. 跑通并核对引用** | On your own laptop, follow `README.md` only and log every snag. Then fill `docs/faithfulness/sample_blank.csv`: for each of the 30 sentences, does the cited passage actually support that sentence? Judge the passage, not whether the score feels right. | 2 | the snag log and the completed faithfulness sheet, under your account |
+
+### Claims
+
+Only piece 4 has a name. Pieces 1, 2, 3 and 5 are unclaimed.
+
+**Piece 4 — Yutong Liu** (`yliu0744@uni.sydney.edu.au`), pending her acceptance of the GitHub collaborator invite. The email is matched to her from the unikey: `yliu0744` is `yliu` plus digits, which fits Yutong Liu. The other women in Group 14 are Yuchun Zheng and Zhaoxinyi Zhou, whose unikeys would not start with `yliu`. GitHub matched that email to the account **Yutong-Liu-07** and the invite grants write access, which is permission to push. Accepting the invite is not the paper note. She still has to open Evidence-First Scoring, GradeAgentOps and RULERS herself and commit a short note under her own account. That note must not say this project beats those papers.
 
 Pieces 1 and 2 must be two different people. Fill the sheet before you can
 see the other one. Do not post either CSV in the group chat. Tell the chat
@@ -76,7 +83,7 @@ outside the repository at `5623/标注包_final_test/`. The sheet survives Excel
 
 **3 — sessions.** `docs/MARKER_SESSIONS.md` has the protocol, the consent note to read verbatim, and the questionnaire. Each participant must **also** mark a submission with the rubric alone, timed, or M10 cannot be computed at all. Record sessions as `docs/sessions/<participant>_<arm>.json` from `TEMPLATE.json`, then run `scripts/summarise_sessions.py`.
 
-**4 — the three papers.** Open Evidence-First Scoring (Cai 2026), GradeAgentOps (Anghel et al. 2026) and RULERS (Hong et al. 2026a/b) from the links in `RELATED_WORK.md`. The proposal lost a mark for claiming novelty that prior work already had. The useful result is a correction, not a bigger claim.
+**4 — the three papers.** Claimed by Yutong Liu; the note is not written. See Claims above. Open Evidence-First Scoring (Cai 2026), GradeAgentOps (Anghel et al. 2026) and RULERS (Hong et al. 2026a/b) from the links in `RELATED_WORK.md`. The proposal lost a mark for claiming novelty that prior work already had. The useful result is a correction, not a bigger claim. She opens the papers herself. The note must not say this project beats those papers.
 
 **5 — another computer, then the 30 sentences.** Follow the README exactly. The CI break fixed on 7 October was this class of defect (`pytest` behaved differently from `python -m pytest`). Report what happened rather than working around it silently. The faithfulness sheet is `docs/faithfulness/sample_blank.csv`. A yes means the cited passage supports the sentence. Do not use a model to answer, and do not treat a matching evidence id as enough.
 
@@ -92,8 +99,8 @@ the boundary is what makes the disclosure meaningful.
   is deliberately blank. A model judging whether its own citation supports its
   own claim is not human evidence.
 - **Real marker timings and observations.** A stopwatch on a real person.
-- **Teammates' acceptance of these roles.** This document is a proposal until
-  each person says yes.
+- **Teammates' acceptance of these roles.** Piece 4 has a claimant. The other
+  four pieces stay a proposal until that person says yes.
 - **The live assessments.** AI is prohibited in the Week 10, Week 12 and Week 13
   rooms, so the explanation has to be genuinely understood.
 
@@ -104,7 +111,7 @@ the boundary is what makes the disclosure meaningful.
 | ~~7 Oct~~ **done** | code and prompts frozen (`FREEZE.md`); A/B2/B3 campaign run; robustness experiment predeclared and run; CheckList cited | Han |
 | 10 Oct | both annotators have claimed pieces 1 and 2 and started offline | whoever claims them |
 | 14 Oct | both sheets received privately; `agreement.json` committed from the untouched originals, before any discussion | the two annotators, then Han runs agreement |
-| 21 Oct | piece 3 sessions, piece 4 paper note, piece 5 snag log and faithfulness sheet | whoever claims each |
+| 21 Oct | piece 3 sessions, piece 4 paper note, piece 5 snag log and faithfulness sheet | piece 4: Yutong Liu; pieces 3 and 5: whoever claims them |
 | 24 Oct | frozen final-test campaign on the adjudicated labels; report §§7–10 rewritten from the new files only | disclosed AI assistance, after the five pieces, not instead of them |
 | 29 Oct | contribution register regenerated; each named person matches a commit | all five |
 | 1 Nov | clean-clone rehearsal on the submission package; demo rehearsal without AI | all five |
