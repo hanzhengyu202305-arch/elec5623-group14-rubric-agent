@@ -43,3 +43,8 @@ Update this file whenever an AI tool contributes to a change.
 - **Scope:** documentation only; no source, prompts, labels, model configuration or experiment results were changed. No new model accuracy or timing claims were made.
 - **Verification:** local documentation links, whitespace checks and the existing freeze guard. No new model evaluation or human study was conducted.
 - **Human review:** the documentation change is submitted for review; teammate approval and coursework submission are not claimed.
+
+## 20 October 2026 — OpenRouter gateway option
+
+- **Produced:** an optional OpenRouter gateway (`--gateway openrouter[:model]`) on the existing OpenAI-compatible client. The key is read from `RMA_OPENROUTER_API_KEY` at runtime. The Review page lists it when that variable is set and labels it not configured otherwise. Docs name `RMA_OPENROUTER_API_KEY` and `RMA_OPENROUTER_MODEL`.
+- **What it did not do:** call OpenRouter, run a marking campaign, or change frozen evaluation numbers.

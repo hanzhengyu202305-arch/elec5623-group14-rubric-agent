@@ -6,9 +6,10 @@ Two implementations share one interface:
   demo. It is a stand-in for a model, not a model; numbers produced with it
   demonstrate the *harness*, not model quality.
 * `OpenAICompatibleGateway` – any `/chat/completions` endpoint (OpenAI, Azure
-  AI Foundry, Ollama, vLLM, ...). Configured from environment variables so the
-  key never lives in code or logs. All failures are fail-closed: a bad response
-  becomes an `insufficient` record with a flag, never a score.
+  AI Foundry, Ollama, vLLM, OpenRouter, ...). Configured from environment
+  variables so the key never lives in code or logs. All failures are
+  fail-closed: a bad response becomes an `insufficient` record with a flag,
+  never a score.
 
 Both expose `assess()` (agent path, per criterion, evidence only) and
 `grade_direct()` (baseline B2: whole rubric + whole document in one call).
@@ -510,10 +511,16 @@ def parse_model_json(content: str, criterion: Criterion) -> AssessmentDraft:
 
 
 OLLAMA_URL = "http://localhost:11434"
+OPENROUTER_URL = "https://openrouter.ai/api/v1"
+DEFAULT_OPENROUTER_MODEL = "openai/gpt-4o-mini"
 
 
 def build_gateway(spec: str | None = None, *, env: dict[str, str] | None = None) -> ModelGateway:
-    """`fixture`, `fixture:<fail_mode>`, `live` (reads RMA_* environment) or `ollama:<model>` (local server)."""
+    """`fixture`, `fixture:<fail_mode>`, `live` (RMA_* env), `ollama:<model>`, or `openrouter[:model]`.
+
+    OpenRouter reads `RMA_OPENROUTER_API_KEY` at runtime. `RMA_OPENROUTER_MODEL`
+    overrides the placeholder default; `--gateway openrouter:<model>` wins over that.
+    """
     env = env if env is not None else os.environ
     spec = spec or env.get("RMA_GATEWAY", "fixture")
     if spec.startswith("fixture"):
@@ -522,6 +529,12 @@ def build_gateway(spec: str | None = None, *, env: dict[str, str] | None = None)
     if spec.startswith("ollama:"):
         model = spec.partition(":")[2]
         return OpenAICompatibleGateway(endpoint=env.get("RMA_OLLAMA_URL", OLLAMA_URL) + "/v1", model=model, api_key=None)
+    if spec == "openrouter" or spec.startswith("openrouter:"):
+        api_key = (env.get("RMA_OPENROUTER_API_KEY") or "").strip()
+        if not api_key:
+            raise RuntimeError("RMA_OPENROUTER_API_KEY must be set for the OpenRouter gateway")
+        model = spec.partition(":")[2].strip() or (env.get("RMA_OPENROUTER_MODEL") or "").strip() or DEFAULT_OPENROUTER_MODEL
+        return OpenAICompatibleGateway(endpoint=OPENROUTER_URL, model=model, api_key=api_key)
     if spec in {"live", "openai", "azure", "ollama"}:
         return OpenAICompatibleGateway.from_env(env)
     raise ValueError(f"unknown gateway spec: {spec}")

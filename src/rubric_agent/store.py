@@ -46,14 +46,17 @@ class ReplayOutcome:
 def gateway_spec_for(model_id: str) -> str:
     """Rebuild the gateway spec that produced a logged `model_id`.
 
-    Fixture ids start with `fixture`; live ids are `<model>@<host>` and a local
-    Ollama host maps to `ollama:<model>`, any other host to `live` (RMA_* env).
+    Fixture ids start with `fixture`; live ids are `<model>@<host>`. A local
+    Ollama host maps to `ollama:<model>`, OpenRouter to `openrouter:<model>`,
+    any other host to `live` (RMA_* env).
     """
     if model_id.startswith("fixture"):
         return "fixture"
     model, _, host = model_id.partition("@")
     if host.startswith(("localhost:11434", "127.0.0.1:11434")):
         return f"ollama:{model}"
+    if host == "openrouter.ai":
+        return f"openrouter:{model}"
     return "live"
 
 

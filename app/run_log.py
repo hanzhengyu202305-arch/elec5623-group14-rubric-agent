@@ -59,6 +59,7 @@ spec = gateway_spec_for(entry.model_id)
 available = (
     spec == "fixture"
     or (spec.startswith("ollama:") and spec.partition(":")[2] in local_ollama_models())
+    or (spec.startswith("openrouter:") and bool((os.environ.get("RMA_OPENROUTER_API_KEY") or "").strip()))
     or (spec == "live" and bool(os.environ.get("RMA_MODEL_ENDPOINT")))
 )
 st.write(f"Entry `{entry.test_case_id}` / `{entry.criterion_id}` was produced by `{entry.model_id}` → replay gateway `{spec}`"

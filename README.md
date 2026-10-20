@@ -51,7 +51,26 @@ Windows 激活虚拟环境时，将 `source .venv/bin/activate` 换成 `.venv\Sc
 
 打开终端显示的本地网址，在左侧 **Example** 选择 `s1_standard (S1 baseline)`，点击 **Run review**。
 
-**默认是 fixture 演示模式**：不需要 API key，也不会调用真实 AI，适合先走通操作。要看真实模型效果，可使用本地 Ollama，或配置托管模型；具体见 [模型配置](README_EN.md#models)。托管模型会把所选内容发往配置的服务。
+**默认是 fixture 演示模式**：不需要 API key，也不会调用真实 AI，适合先走通操作。要看真实模型效果，可使用本地 Ollama、OpenRouter，或配置其它托管模型；具体见下面的 OpenRouter 小节和 [模型配置](README_EN.md#models)。托管模型会把所选内容发往配置的服务。
+
+### OpenRouter（可选）
+
+密钥只在运行时从环境变量读取，不要写进代码、笔记本，也不要提交 `.env`。未设置密钥时，网页仍能打开，侧边栏会显示 OpenRouter 未配置。
+
+| 变量 | 作用 |
+|---|---|
+| `RMA_OPENROUTER_API_KEY` | 必填。OpenRouter 的 API key |
+| `RMA_OPENROUTER_MODEL` | 可选。不设时默认 `openai/gpt-4o-mini`，可改成 OpenRouter 的其它模型名 |
+
+请求发往 `https://openrouter.ai/api/v1`。用一份合成示例跑一次（不是冻结实验，也不会改已有结果）：
+
+```bash
+export RMA_OPENROUTER_API_KEY="换成你的新密钥"
+export RMA_OPENROUTER_MODEL="openai/gpt-4o-mini"
+rma --gateway openrouter demo
+```
+
+模型名也可以写在参数里，并覆盖环境变量：`rma --gateway openrouter:openai/gpt-4o-mini demo`。网页界面要在导出变量之后重新启动，才会把 OpenRouter 显示为可用；界面不显示密钥。
 
 ## 目前做到哪一步？
 

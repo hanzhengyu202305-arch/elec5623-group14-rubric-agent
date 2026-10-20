@@ -69,6 +69,7 @@ rma demo --rubric dataset/real/elec5623_business_proposal_rubric.md \
 | **fixture** (default) | `--gateway fixture` before the subcommand | deterministic offline stand-in; tests, CI, fault injection |
 | **local Ollama** | run `ollama serve`, then `rma --gateway ollama:qwen2.5:7b-instruct demo` (the UI lists running models automatically) | real model, no key, nothing leaves the machine — this is candidate (b) of proposal §6.3 |
 | **hosted / Azure** | `RMA_MODEL_ENDPOINT`, `RMA_MODEL`, `RMA_MODEL_API_KEY` (+ `RMA_API_KEY_HEADER=api-key`, `RMA_API_VERSION` for Azure), then `rma --gateway live demo` | candidate (a); see `docs/GOVERNANCE.md` for secret handling |
+| **OpenRouter** | `RMA_OPENROUTER_API_KEY` (required) and optional `RMA_OPENROUTER_MODEL` (default `openai/gpt-4o-mini`), then `rma --gateway openrouter demo`. A spec model overrides the env model: `rma --gateway openrouter:openai/gpt-4o-mini demo` | OpenAI-compatible chat completions at `https://openrouter.ai/api/v1`. The key is read only from the environment at runtime and is never shown in the UI. If the key is unset, the Review page still loads and labels OpenRouter as not configured |
 
 Historical evaluation command (choose a new output path to preserve committed reports): `rma --gateway ollama:qwen2.5:7b-instruct eval --repeats 2 --report data/evaluation_new.md --json data/evaluation_new.json`
 (about 50 min on an M2 Pro; results committed under `docs/`).

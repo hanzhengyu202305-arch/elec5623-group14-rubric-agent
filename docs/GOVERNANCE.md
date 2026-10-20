@@ -17,7 +17,7 @@
 
 ## Secrets
 
-* Keys are read from `RMA_MODEL_API_KEY` once, sent only in the request header, never printed, never written to the run log. `gateway.name` contains model and host only.
+* Keys are read from `RMA_MODEL_API_KEY` (generic live gateway) or `RMA_OPENROUTER_API_KEY` (OpenRouter) once, sent only in the request header, never printed, never written to the run log. `gateway.name` contains model and host only.
 * The Azure key from Lab 1 stays in Azure/Foundry (course rule). Configure it through the environment on the machine that runs the demo; do not paste it into code, notebooks or chat.
 
 Example (Azure AI Foundry):
@@ -30,6 +30,14 @@ export RMA_MODEL_API_KEY="<key>"
 export RMA_API_KEY_HEADER=api-key
 export RMA_API_VERSION=2024-10-21
 rma demo --submission s4_decoy_eval
+```
+
+Example (OpenRouter; put a new key in the environment, not in a file that is committed):
+
+```bash
+export RMA_OPENROUTER_API_KEY="<key>"
+export RMA_OPENROUTER_MODEL="openai/gpt-4o-mini"   # optional; this is the default
+rma --gateway openrouter demo
 ```
 
 Example (local Ollama, no key; the UI lists running models by itself):

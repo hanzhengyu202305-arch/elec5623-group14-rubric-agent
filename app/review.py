@@ -63,10 +63,21 @@ with st.sidebar:
         options[f"live · {os.environ['RMA_MODEL']} (RMA_* environment)"] = "live"
     for name in _ollama_models():
         options[f"local Ollama · {name}"] = f"ollama:{name}"
+    openrouter_model = (os.environ.get("RMA_OPENROUTER_MODEL") or "").strip() or "openai/gpt-4o-mini"
+    openrouter_ready = bool((os.environ.get("RMA_OPENROUTER_API_KEY") or "").strip())
+    if openrouter_ready:
+        options[f"OpenRouter · {openrouter_model}"] = f"openrouter:{openrouter_model}"
+    else:
+        options["OpenRouter (not configured)"] = "openrouter"
     options["MiniMax API (hosted)"] = "minimax"
     gateway_label = st.radio("Gateway", list(options),
                              help="Live gateways appear only when configured (RMA_* variables) or when a local Ollama server is running. Keys are never shown or logged.")
     spec = options[gateway_label]
+    if spec == "openrouter" or spec.startswith("openrouter:"):
+        if openrouter_ready:
+            st.caption("OpenRouter sends the selected text to https://openrouter.ai/api/v1. The API key stays in RMA_OPENROUTER_API_KEY and is not shown.")
+        else:
+            st.caption("OpenRouter is not configured. Set RMA_OPENROUTER_API_KEY and restart. Optional: RMA_OPENROUTER_MODEL. The key is never shown.")
     if spec == "minimax":
         minimax_regions = {
             "International · platform.minimax.io": DEFAULT_ENDPOINT,

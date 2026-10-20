@@ -1,6 +1,6 @@
 """`rma` command line.
 
-  rma demo   [--rubric R] [--submission S] [--gateway fixture|live] [--auto-accept] [--log runs.jsonl]
+  rma demo   [--rubric R] [--submission S] [--gateway fixture|live|openrouter[:model]] [--auto-accept] [--log runs.jsonl]
   rma eval   [--split all|dev|heldout] [--repeats N] [--gateway ...] [--report docs/EVALUATION.md] [--json out.json]
   rma replay --log runs.jsonl            # M12: re-execute logged calls and compare
   rma baseline [--rubric R] [--submission S]   # B2 direct grading for comparison
@@ -36,7 +36,7 @@ def _resolve(kind: str, name: str) -> Path:
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="rma", description="Evidence-first rubric marking agent")
-    parser.add_argument("--gateway", default=None, help="fixture (default), fixture:<fail_mode>, ollama:<model> (local server), or live (RMA_* env)")
+    parser.add_argument("--gateway", default=None, help="fixture (default), fixture:<fail_mode>, ollama:<model> (local server), openrouter[:model] (RMA_OPENROUTER_API_KEY), or live (RMA_* env)")
     sub = parser.add_subparsers(dest="cmd", required=True)
 
     demo = sub.add_parser("demo", help="Run the agent path on one rubric + submission")
